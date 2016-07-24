@@ -1,7 +1,9 @@
 h1. Pure CSS Tooltips
-  
+
 An experiment that uses a custom HTML5 data- attribute (named data-tooltip) and :before and :after generated content to turn any element into a popup tooltip. No Javascript or extra markup necessary.
 
-Theoretically suitable for consumption in: IE8+, FireFox3.6+, Opera 10+, Chrome 4+ &amp; Safari 4+.</p>
+Theoretically suitable for consumption in: IE8+, FireFox3.6+, Opera 10+, Chrome 4+ &amp; Safari 4+.
+
+See "the demo":https://freqdec.github.io/Pure-CSS-Tooltips/ for more information.
 
 Inspired by Nicolas Gallagher&#8217;s article "Multiple Backgrounds and Borders with CSS 2.1":http://nicolasgallagher.com/multiple-backgrounds-and-borders-with-css2/.
