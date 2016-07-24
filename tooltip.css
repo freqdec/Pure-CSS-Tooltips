@@ -1,0 +1,197 @@
+
+/* Styles for elements having a data-tooltip attribute - using the star
+   selector sucks so you may wish to change this to predefined list of HTML
+   tags instead */
+*[data-tooltip]
+    {
+    /* position:relative the tooltip launcher to enable us to position:absolute
+       the generated content */
+    position:relative;
+    /* Change cursor - you may want to remove this if you don't like the
+       effect */
+    cursor:help;
+    }
+/* Default ::before & ::after values */
+*[data-tooltip]::before,
+*[data-tooltip]::after
+    {
+    pointer-events:none;
+    outline:none;
+    display:block;
+    z-index:999;
+    position:absolute;
+    bottom:100%;
+    left:50%;
+    margin:0;
+    padding:0;
+    /* Set-up the animation */
+    opacity:0;
+    -webkit-transition:all 0.4s ease-out 0.2s;
+    -moz-transition:all 0.4s ease-out 0.2s;
+    -o-transition:all 0.4s ease-out 0.2s;
+    transition:all 0.4s ease-out 0.2s;
+    -webkit-transform:translate(-50%, -1rem);
+    -moz-transform:translate(-50%, -1rem);
+    -ms-transform:translate(-50%, -1rem);
+    -o-transform:translate(-50%, -1rem);
+    transform:translate(-50%, -1rem);
+    }
+/* Tooltip arrow */
+*[data-tooltip]::before
+    {
+    content:"";
+    /* Borders are used to create the arrow so no height or width required */
+    width:0;
+    height:0;
+    line-height:0;
+    /* This sets the tooptip arrow color */
+    border-top:5px solid #000;
+    border-left:5px solid transparent;
+    border-right:5px solid transparent;
+    border-bottom:transparent;
+    overflow:hidden;
+    }
+/* Tooltip bubble */
+*[data-tooltip]::after
+    {
+    /* Use the data-tooltip attribute to set the content */
+    content:attr(data-tooltip);
+    /* Set a default width */
+    width:248px;
+    /* Use a margin to create the space required for displaying the tooltip
+       arrow */
+    margin-bottom:5px;
+    /* Defensive font reset as we inherit */
+    letter-spacing:normal;
+    text-align:center;
+    /* (older) Moz doesn't seem to recognise the following */
+    text-decoration:none;
+    word-spacing: normal;
+    word-wrap: normal;
+    word-break: normal;
+    line-height:1.2;
+    -webkit-font-smoothing: antialiased;
+    font-weight:normal;
+    font-family:"Open Sans", "Segoe", "Segoe UI", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Verdana, sans-serif;
+    /* webkit has problems using rem units on generated content so i'm falling
+      back to old school pixels */
+    font-size:13px;
+    padding:6px;
+    min-height:18px;
+    color:#fcfcfc;
+    /* Default 'dark' theme */
+    background-color:#222;
+    background-image:-webkit-gradient(linear, left top, left bottom, from(#222), to(#000));
+    background-image:-moz-linear-gradient(top,#222,#000);
+    background-image:linear-gradient(top,#222,#000);
+    -webkit-border-radius:0.2em;
+    -moz-border-radius:0.2em;
+    border-radius:0.2em;
+    -webkit-box-shadow:0 -2px 4px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow:0 -2px 2px rgba(0, 0, 0, 0.2);
+    box-shadow:0 -2px 2px rgba(0, 0, 0, 0.2);
+    text-shadow:rgba(0, 0, 0, 0.2) 0 1px 0px;
+    }
+/* :hover & :focus states */
+*[data-tooltip]:hover::before,
+*[data-tooltip]:focus::before,
+*[data-tooltip]:hover::after,
+*[data-tooltip]:focus::after
+    {
+    /* http://www.useragentman.com/blog/2014/05/04/fixing-typography-inside-of-2-d-css-transforms/ */
+    -webkit-transform: perspective(1px) translate(-50%, 0);
+    -moz-transform: perspective(1px) translate(-50%, 0);
+    -ms-transform: translate(-50%, 0);
+    -o-transform: translate(-50%, 0);
+    transform: perspective(1px) translate(-50%, 0);
+    /* Reset pointer events or things go all strange... */
+    pointer-events: auto;
+    /* Set the final opacity */
+    opacity:0.96;
+    }
+/* Monospace font */
+*[data-tooltip][data-tooltip-theme~="mono"]::after,
+[data-tooltip-theme~="mono"] *[data-tooltip]::after
+    {
+    font-family:monospace;
+    }
+/* Left align text */
+*[data-tooltip][data-tooltip-theme~="lft"]::after,
+[data-tooltip-theme~="lft"] *[data-tooltip]::after
+    {
+    text-align:left;
+    }
+/* Right align text */
+*[data-tooltip][data-tooltip-theme~="rht"]::after,
+[data-tooltip-theme~="rht"] *[data-tooltip]::after
+    {
+    text-align:right;
+    }
+/* Right to left writing direction */
+*[data-tooltip][data-tooltip-theme~="rtl"]::after,
+[data-tooltip-theme~="rtl"] *[data-tooltip]::after
+    {
+    direction:rtl;
+    }
+/* Blue theme */
+*[data-tooltip][data-tooltip-theme~="blue"]::after,
+[data-tooltip-theme~="blue"] *[data-tooltip]::after
+    {
+    background-color:#3498db;
+    background-image:-webkit-gradient(linear, left top, left bottom, from(#3498db), to(#3198dd));
+    background-image:-moz-linear-gradient(top,#3498db,#3198dd);
+    background-image:linear-gradient(top,#3498db,#3198dd);
+    }
+*[data-tooltip][data-tooltip-theme~="blue"]::before,
+[data-tooltip-theme~="blue"] *[data-tooltip]::before
+    {
+    border-top-color:#3198dd;
+    }
+/* Red theme */
+*[data-tooltip][data-tooltip-theme~="red"]::after,
+[data-tooltip-theme~="red"] *[data-tooltip]::after
+    {
+    background-color:#c0392b;
+    background-image:-webkit-gradient(linear, left top, left bottom, from(#c0392b), to(#e74c3c));
+    background-image:-moz-linear-gradient(top,#c0392b,#e74c3c);
+    background-image:linear-gradient(top,#c0392b,#e74c3c);
+    }
+*[data-tooltip][data-tooltip-theme~="red"]::before,
+[data-tooltip-theme~="red"] *[data-tooltip]::before
+    {
+    border-top-color:#e74c3c;
+    }
+/* Green theme */
+*[data-tooltip][data-tooltip-theme~="green"]::after,
+[data-tooltip-theme~="green"] *[data-tooltip]::after
+    {
+    background-color:#3FC380;
+    background-image:-webkit-gradient(linear, left top, left bottom, from(#3FC380), to(#2ECC71));
+    background-image:-moz-linear-gradient(top,#3FC380,#2ECC71);
+    background-image:linear-gradient(top,#3FC380,#2ECC71);
+    }
+*[data-tooltip][data-tooltip-theme~="green"]::before,
+[data-tooltip-theme~="green"] *[data-tooltip]::before
+    {
+    border-top-color:#2ECC71;
+    }
+/* Orange theme */
+*[data-tooltip][data-tooltip-theme~="orange"]::after,
+[data-tooltip-theme~="orange"] *[data-tooltip]::after
+    {
+    background-color:#F9690E;
+    background-image:-webkit-gradient(linear, left top, left bottom, from(#F9690E), to(#D35400));
+    background-image:-moz-linear-gradient(top,#F9690E,#D35400);
+    background-image:linear-gradient(top,#F9690E,#D35400);
+    }
+*[data-tooltip][data-tooltip-theme~="orange"]::before,
+[data-tooltip-theme~="orange"] *[data-tooltip]::before
+    {
+    border-top-color:#D35400;
+    }
+/* Make tooltip "links" have a different pointer (as the tooltip uses the
+ "help" cursor) */
+a[data-tooltip]
+    {
+    cursor:pointer;
+    }

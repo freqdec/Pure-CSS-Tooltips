@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Pure CSS Tooltips ~ frequency decoder</title>
+  <meta charset="utf-8">
+  <meta name="description" content="An experiment in creating pure CSS tooltips">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link href='tooltip.css' rel='stylesheet' type='text/css'>
+  <style>
+body
+    {
+    text-align:left;
+    color:#222;
+    background:#fff;
+    font-size:100%;
+    line-height:1.4;
+    font-weight:normal;
+    font-family:"Open Sans", "Segoe", "Segoe UI", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Verdana, sans-serif;
+    max-width:45em;
+    margin:0 auto;
+    padding:0 1em;
+    }
+a
+    {
+    color:#111;
+    }
+h1,
+h2,
+h3
+    {
+    font-weight:700;
+    font-family:inherit;
+    letter-spacing:-0.03em;
+    }
+pre
+    {
+    padding:1em;
+    background: #33343f;
+    }
+code
+    {
+    font-size:100%;
+    font-family: Consolas, Monaco, "Andale Mono", "DejaVu Sans Mono", monospace;
+    color:#222;
+    }
+pre code
+    {
+    display:block;
+    padding:1em;
+    font-size: 95%;
+    line-height: 140%;
+    white-space: pre;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -o-pre-wrap;
+    background: #23241f;
+    color: #f8f8f2;
+    }
+/* Just for the demo, make the tooltip spans stand out */
+span[data-tooltip]
+    {
+    border-bottom:1px dotted #888;
+    }
+.tooltip-wrapper
+    {
+    display:inline-block;
+    border:0 none !important;
+    }
+.tooltip-themes,
+.tooltip-themes li
+    {
+    list-style-type:none;
+    margin:0 0 1.4em 0;
+    padding:0;
+    display:block;
+    }
+.tooltip-themes li
+    {
+    margin:0 0 0.5em 0;
+    }
+  </style>
+  </head>
+  <body>
+    <h1>Pure CSS Tooltips</h1>
+    <p>An experiment that uses a custom HTML5 data attribute (<code data-tooltip="The tooltip&#8217;s textual content is stored in a custom HTML5 &#8220;data-tooltip&#8221; attribute">data-tooltip</code>) and <code>::before</code> and <code>::after</code> <a href="http://www.w3.org/TR/css3-content/" data-tooltip="More information on the W3C Generated Content Module&#8230;">generated content</a> to turn any element into a popup <span data-tooltip="After a brief pause, the tooltip animates into position from the top of the launch element">tooltip</span>. No Javascript or extra markup necessary.</p>
+    <pre><code>&lt;span data-tooltip="I’m a tooltip">tooltip&lt;/span></code></pre>
+    <p>Would result in the following <span data-tooltip="I’m a tooltip">tooltip</span>.</p>
+    <h2>Theming</h2>
+    <p>A few different colour schemes are available, just add the attribute <code>data-tooltip-theme</code> to the element and give it one of the following values - <code>blue</code>, <code>green</code>, <code>orange</code> or <code>red</code>; for example:</p>
+    <pre><code>&lt;span data-tooltip-theme="blue" data-tooltip="I’m a blue tooltip">tooltip&lt;/span></code></pre>
+    <p>Would result in the following <span data-tooltip-theme="blue" data-tooltip="I’m a blue tooltip">tooltip</span>.</p>
+    <p>If no theme is explicitly set, the tooltip falls back to the default <span data-tooltip="The default dark tooltip theme">dark theme</span>. Hover over the examples below to see the themes in action:</p>
+    <ul class="tooltip-themes">
+        <li><pre><code data-tooltip="A blue tooltip theme" data-tooltip-theme="blue">data-tooltip-theme="blue"</code></pre></li>
+        <li><pre><code data-tooltip="A green tooltip theme" data-tooltip-theme="green">data-tooltip-theme="green"</code></pre></li>
+        <li><pre><code data-tooltip="An orange tooltip theme" data-tooltip-theme="orange">data-tooltip-theme="orange"</code></pre></li>
+        <li><pre><code data-tooltip="A red tooltip theme" data-tooltip-theme="red">data-tooltip-theme="red"</code></pre></li>
+    </ul>
+    <p>If you want a group of tooltips to share the same theme there&#8217;s no need to add the <code>data-tooltip-theme</code> attribute to each element, just give a parent element (the <code>&lt;body&gt;</code> for example) the <code>data-tooltip-theme</code> attribute instead. For example, the following code:</p>
+    <pre><code>&lt;body data-tooltip-theme="blue"></code></pre>
+    <p>Will set the blue theme for all tooltips on the page.</p>
+    <h3>Font &amp; alignment extras</h3>
+    <p>If you wish to align the tooltip text either left or right then add <code>lft</code> or <code>rht</code> respectively to the value of the <code>data-tooltip-theme</code> attribute. If you wish to use a monospace font then add <code>mono</code> to the value of the <code>data-tooltip-theme</code> attribute.</p>
+    <p>Multiple values can be concatenated as is shown below:</p>
+    <pre><code>&lt;span data-tooltip-theme="orange mono lft" data-tooltip="An orange tooltip with left aligned text displayed in a monospace typeface">tooltip&lt;/span></code></pre>
+    <p>Which would result in the following <span data-tooltip-theme="orange mono lft" data-tooltip="An orange tooltip with left aligned text displayed in a monospace typeface">tooltip</span>.</p>
+    <p>A right to left writing direction can be set by adding <code>rtl</code> to the value of the <code>data-tooltip-theme</code> attribute. An example is shown below:</p>
+    <p><span data-tooltip-theme="rtl" data-tooltip="حول ما فبعد الشّعبين. أم الى">RTL tooltip text</span></p>
+    <h2>Replaced elements</h2>
+    <p>While I have just said &#8220;no extra markup necessary&#8221;, replaced elements (such as <code>img</code>,  <code>object</code>, <code>input</code> and <code>textarea</code>) require that the <code>data-tooltip</code> attribute is set on a &#8220;slightly hacky&#8221; wrapper element as is shown below:</p>
+    <pre><code>&lt;span class="tooltip-wrapper" data-tooltip="A placeholder image generated by placehold.it">&lt;img src="http://placehold.it/350x150" />&lt;/span></code></pre>
+    <p>Which results in the following:</p>
+    <p><span class="tooltip-wrapper" data-tooltip="A placeholder image generated by placehold.it"><img src="http://placehold.it/350x150" /></span></p>
+    <p>Form elements can also be given tooltips using the same method; for example:</p>
+    <form action="">
+        <p><span class="tooltip-wrapper" data-tooltip="Please enter a password containing at least 4 lowercase letters, 2 uppercase letters, 2 numbers and your mother’s maiden name"><input name="demo-input" /></span></p>
+    </form>
+    <p><strong>Note</strong>: The wrapper element has to be set to <code>display:line-block;</code> for the tooltip to be correctly positioned at the top of the element.</p>
+    <h2>Is there a SASS/LESS version of the CSS file?</h2>
+    <p>There's not really much point in having one. You have to edit the <a href="css/tooltip.css" data-tooltip="Download the CSS file">CSS file</a> anyway in order to set the <code>font-family</code> and <code>font-size</code> as these are inherited properties and therefore have to be explicitly set (you dont want the tooltip to inherit a monospace font when hovering over a <code>&lt;code&gt;</code> block for example).</p>
+    <p>Additionally, webkit has problems when setting the <code>font-size</code> using <code>REM</code> units. This leaves us either <code>PX</code> or <code>EM</code>. <code>EM</code> values are problematic as the tooltip inherits an uncertain <code>font-size</code> from the parent element. <code>PX</code> units appear to be therefore the only way in which to currently set a consistent cross browser <code>font-size</code>. You may wish to change the current value of 13px.</p>
+    <p>If you are not using the themes then it&#8217;s also a good idea to strip the associated CSS from the file to keep the size down and then minify what&#8217;s left to remove the comments.</p>
+    <h2>Be aware that&#8230;</h2>
+    <ul>
+        <li>Only recent browsers that support CSS transitions, attribute selectors and generated content will display the tooltips.</li>
+        <li>The tooltip text will <em>not be made available to assistive technologies</em>. You may wish to use the good old <code>title</code> attribute and forego the tooltip completely if the text is important to context.</li>
+        <li>There&#8217;s no Javascript involved so the tooltip is dumbly positioned and can overshoot the viewport if close to an edge.</li>
+        <li>Content formatting options are non-existant as we rely on the plaintext value of the <code>data-tooltip</code> attribute.</li>
+        <li>You can only use the tooltips on elements that are not already using the <code>::before</code> and <code>::after</code> pseudo elements.</li>
+        <li>They won&#8217;t work on replaced elements without using a wrapper element</li>
+    </ul>
+    <p>Inspired by Nicolas Gallagher&#8217;s article <a data-tooltip="Nicolas Gallagher&#8217;s article explaining how to use generated content and absolute positioning to achieve a multitude of visual effects. A must read." href="http://nicolasgallagher.com/multiple-backgrounds-and-borders-with-css2/">Multiple Backgrounds and Borders with CSS 2.1</a>.</p>
+  </body>
+</html>
